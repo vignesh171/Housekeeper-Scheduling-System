@@ -1,0 +1,119 @@
+create database housekeeper_scheduling;
+use housekeeper_scheduling;
+
+show tables;
++----------------------------------+
+| Tables_in_housekeeper_scheduling |
++----------------------------------+
+| admin                            |
+| clean_request                    |
+| feedback                         |
+| student                          |
+| worker                           |
++----------------------------------+
+
+desc admin;
++----------+--------------+------+-----+---------+----------------+
+| Field    | Type         | Null | Key | Default | Extra          |
++----------+--------------+------+-----+---------+----------------+
+| admin_id | int          | NO   | PRI | NULL    | auto_increment |
+| hostel   | varchar(255) | YES  |     | NULL    |                |
+| password | varchar(255) | YES  |     | NULL    |                |
+| username | varchar(255) | YES  |     | NULL    |                |
++----------+--------------+------+-----+---------+----------------+
+
+select * from admin;
++----------+-----------+------------+---------------------+
+| admin_id | hostel    | password   | username            |
++----------+-----------+------------+---------------------+
+|        1 | Staygrand | Harshi@12  | Harshitha@gmail.com |
+|        2 | NN        | Thanmai@12 | Thanmai@gmail.com   |
+|        3 | Akshay    | Manu@1435  | Manu12@gmail.com    |
+|        4 | AA        | Abc@1234   | Harshitha@gmail.com |
+|        5 | Rll       | Rll@1234   | Rll@gmail.com       |
+|        6 | stay      | Admin@12   | Admin@gmail.com     |
++----------+-----------+------------+---------------------+
+
+ desc clean_request;
++-----------------+--------+------+-----+---------+----------------+
+| Field           | Type   | Null | Key | Default | Extra          |
++-----------------+--------+------+-----+---------+----------------+
+| request_id      | bigint | NO   | PRI | NULL    | auto_increment |
+| clean_time      | time   | YES  |     | NULL    |                |
+| date            | date   | YES  |     | NULL    |                |
+| feedback_status | bit(1) | NO   |     | NULL    |                |
+| req_status      | bit(1) | NO   |     | NULL    |                |
+| rollnumber      | bigint | YES  | MUL | NULL    |                |
+| worker_id       | bigint | YES  | MUL | NULL    |                |
++-----------------+--------+------+-----+---------+----------------+
+
+
+select * from clean_request;
++------------+------------+------------+----------------------------------+------------------------+------------+-----------+
+| request_id | clean_time | date       | feedback_status                  | req_status             | rollnumber | worker_id |
++------------+------------+------------+----------------------------------+------------------------+------------+-----------+
+|          1 | 10:49:00   | 2024-09-19 | 0x01                             | 0x01                   |     123456 |         1 |
+|          2 | 14:27:00   | 2024-09-19 | 0x00                             | 0x01                   |     145236 |         2 |
+|          3 | 15:50:00   | 2024-09-19 | 0x01                             | 0x01                   |     260459 |         4 |
++------------+------------+------------+----------------------------------+------------------------+------------+-----------+
+
+
+desc feedback;
++-------------+---------------+------+-----+---------+----------------+
+| Field       | Type          | Null | Key | Default | Extra          |
++-------------+---------------+------+-----+---------+----------------+
+| feedback_id | bigint        | NO   | PRI | NULL    | auto_increment |
+| feedback    | varchar(3000) | YES  |     | NULL    |                |
+| request_id  | bigint        | YES  | MUL | NULL    |                |
+| rollnumber  | bigint        | YES  | MUL | NULL    |                |
++-------------+---------------+------+-----+---------+----------------+
+desc 
+
+select * from feedback;
++-------------+-----------+------------+------------+
+| feedback_id | feedback  | request_id | rollnumber |
++-------------+-----------+------------+------------+
+|           1 | Good Work |          1 |     123456 |
+|           2 | Good Work |          3 |     260459 |
++-------------+-----------+------------+------------+
+
+desc student;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| rollnumber | bigint       | NO   | PRI | NULL    |       |
+| floor      | int          | NO   |     | NULL    |       |
+| hostel     | varchar(255) | YES  |     | NULL    |       |
+| password   | varchar(255) | YES  |     | NULL    |       |
+| room       | varchar(255) | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+
+select * from student;
++------------+-------+-----------+-----------+------+
+| rollnumber | floor | hostel    | password  | room |
++------------+-------+-----------+-----------+------+
+|       1234 |     1 | Staygrand | 1234      | 101  |
+|     123456 |     4 | stay      | 123456    | 415  |
+|     145236 |     4 | Akshay    | 145236    | 415  |
+|     234567 |     2 | Staygrand | 234567    | 201  |
+|     260459 |     1 | stay      | Rakesh@12 | 12   |
++------------+-------+-----------+-----------+------+
+
+desc worker;
++-----------+--------------+------+-----+---------+----------------+
+| Field     | Type         | Null | Key | Default | Extra          |
++-----------+--------------+------+-----+---------+----------------+
+| worker_id | bigint       | NO   | PRI | NULL    | auto_increment |
+| floor     | int          | NO   |     | NULL    |                |
+| hostel    | varchar(255) | YES  |     | NULL    |                |
+| name      | varchar(255) | YES  |     | NULL    |                |
++-----------+--------------+------+-----+---------+----------------+
+
+select * from worker;
++-----------+-------+-----------+-------------+
+| worker_id | floor | hostel    | name        |
++-----------+-------+-----------+-------------+
+|         1 |     1 | Staygrand | Harshitha   |
+|         2 |     4 | Akshay    | Vignesh G   |
+|         4 |     3 | stay      | surya kumar |
++-----------+-------+-----------+-------------+
